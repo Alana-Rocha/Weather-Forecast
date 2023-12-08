@@ -1,15 +1,11 @@
 import { create } from "zustand";
 
-type CoordsErro = {
-  code: number;
-  mensagem: string;
-};
-
 type CoordsStore = {
   states: {
+    isLoading: boolean;
     latitude?: number;
     longitude?: number;
-    erro?: CoordsErro;
+    erro?: string;
   };
   actions: {
     setLatLong: (latitude: number, longitude: number) => void;
@@ -18,26 +14,25 @@ type CoordsStore = {
 };
 
 export const useCoordsStore = create<CoordsStore>((set) => ({
-  states: {},
+  states: {
+    isLoading: true,
+  },
   actions: {
     setLatLong: (latitude, longitude) =>
-      set({ states: { latitude, longitude } }),
+      set({ states: { isLoading: false, latitude, longitude } }),
     setErro: (locationError) => {
-      const erro = {} as CoordsErro;
+      let erro = "";
 
       switch (locationError.code) {
         case locationError.PERMISSION_DENIED:
-          erro.code = locationError.PERMISSION_DENIED;
-          erro.mensagem =
-            "É necessario permissão de localização para o site funcionar";
+          erro = "É necessario permissão de localização para o site funcionar";
           break;
         case locationError.POSITION_UNAVAILABLE:
-          erro.code = locationError.PERMISSION_DENIED;
-          erro.mensagem = "Não foi possível pegar a localização atual";
+          erro = "Não foi possível pegar a localização atual";
           break;
       }
 
-      set({ states: { erro } });
+      set({ states: { isLoading: false, erro } });
     },
   },
 }));

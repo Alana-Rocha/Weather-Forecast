@@ -5,19 +5,18 @@ import { useCoordsStore } from "./stores/coords";
 
 export const App = () => {
   const {
-    states: { erro },
+    states: { isLoading, erro },
     actions: { setLatLong, setErro },
   } = useCoordsStore();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (position) =>
-        setLatLong(position.coords.latitude, position.coords.longitude),
+      ({ coords }) => setLatLong(coords.latitude, coords.longitude),
       (error) => setErro(error)
     );
   }, [setErro, setLatLong]);
 
-  if (erro) return <CoordsErroPage />;
+  if (isLoading) return "Carregando...";
 
-  return <HomePage />;
+  return erro ? <CoordsErroPage /> : <HomePage />;
 };

@@ -7,7 +7,7 @@ export const CoordsErroPage = () => {
 
   return (
     <div>
-      <h1>{erro?.mensagem}</h1>
+      <h1>{erro}</h1>
     </div>
   );
 };
