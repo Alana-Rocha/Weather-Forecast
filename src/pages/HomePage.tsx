@@ -1,3 +1,4 @@
+import temperaturaIcon from "../assets/temperatura.svg";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
 // import { useCoordsStore } from "../stores/coords";
@@ -15,7 +16,9 @@ export const HomePage = () => {
       }}
     >
       <Input />
-      <Box></Box>
+      <Box>
+        <img src={temperaturaIcon} />
+      </Box>
       {/* <h1>
         Sua localização é: {latitude}, {longitude}
       </h1> */}

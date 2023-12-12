@@ -1,7 +1,7 @@
 import { Box as MUIBox } from "@mui/system";
 
 type BoxProps = {
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 };
 
 export const Box = ({ children }: BoxProps) => {
