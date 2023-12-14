@@ -6,6 +6,7 @@ export const Input = () => {
       <InputBase
         placeholder="procure uma cidade"
         sx={{
+          width: "100%",
           p: "10px 25px",
           background: "white",
           borderRadius: "15px",

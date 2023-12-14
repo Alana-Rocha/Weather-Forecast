@@ -1,20 +1,22 @@
+import { Theme } from "@emotion/react";
+import { SxProps } from "@mui/material";
 import { Box as MUIBox } from "@mui/system";
 
 type BoxProps = {
   children?: JSX.Element | JSX.Element[];
 };
 
-export const Box = ({ children }: BoxProps) => {
+export const Box = ({ children, ...rest }: BoxProps & SxProps<Theme>) => {
   return (
     <MUIBox
       sx={{
-        width: 100,
-        height: 100,
+        width: "115px",
+        height: "115px",
         margin: "10px",
         borderRadius: "15px",
-        bgcolor: "white",
+        bgcolor: "rgba(250, 250, 250, 0.05)",
         boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-        opacity: 0.2,
+        ...rest,
       }}
     >
       {children}
