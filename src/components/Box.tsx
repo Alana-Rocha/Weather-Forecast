@@ -1,25 +1,22 @@
-import { Theme } from "@emotion/react";
-import { SxProps } from "@mui/material";
-import { Box as MUIBox } from "@mui/system";
+import { Box as BoxRadix } from "@radix-ui/themes";
 
 type BoxProps = {
   children?: JSX.Element | JSX.Element[];
 };
 
-export const Box = ({ children, ...rest }: BoxProps & SxProps<Theme>) => {
+export const Box = ({ children, ...rest }: BoxProps) => {
   return (
-    <MUIBox
-      sx={{
-        width: "115px",
-        height: "115px",
-        margin: "10px",
-        borderRadius: "15px",
-        bgcolor: "rgba(250, 250, 250, 0.05)",
+    <BoxRadix
+      maxWidth="115px"
+      maxHeight="115px"
+      m="10"
+      style={{
+        background: "rgba(250, 250, 250, 0.05)",
         boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-        ...rest,
       }}
+      {...rest}
     >
       {children}
-    </MUIBox>
+    </BoxRadix>
   );
 };

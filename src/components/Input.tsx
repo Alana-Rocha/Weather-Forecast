@@ -1,18 +1,10 @@
-import InputBase from "@mui/material/InputBase";
+import { TextField } from "@radix-ui/themes";
+import { Box } from "./Box";
 
-export const Input = () => {
+export const InputTeste = () => {
   return (
-    <>
-      <InputBase
-        placeholder="procure uma cidade"
-        sx={{
-          width: "100%",
-          p: "10px 25px",
-          background: "white",
-          borderRadius: "15px",
-          boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-        }}
-      />
-    </>
+    <Box>
+      <TextField.Root placeholder="procure uma cidade" />
+    </Box>
   );
 };
