@@ -1,3 +1,4 @@
+import { Flex, Heading } from "@chakra-ui/react";
 import { useCoordsStore } from "../stores/coords";
 
 export const CoordsErroPage = () => {
@@ -6,8 +7,8 @@ export const CoordsErroPage = () => {
   } = useCoordsStore();
 
   return (
-    <div>
-      <h1>{erro}</h1>
-    </div>
+    <Flex>
+      <Heading>{erro}</Heading>
+    </Flex>
   );
 };
