@@ -13,7 +13,7 @@ import buscaSvg from "../assets/busca.svg";
 export const HomePage = () => {
   // const {
   //   states: { latitude, longitude },
-  // } = useCoordsStore();
+  // } = useCoordsStore(); 
 
   return (
     <Stack

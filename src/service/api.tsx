@@ -4,7 +4,7 @@ import axios from "axios";
 export const api = axios.create({
   baseURL: "https://api.openweathermap.org/data/3.0/onecall",
   params: {
-    appid: "0f683d1b74ab3aad4f0441ea3a01821b",
+    appid: "a9e80247a0d68ccd9d2a8a8da46223cd",
   },
 });
 
