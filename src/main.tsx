@@ -1,15 +1,14 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App.tsx";
-import "./index.css";
-import { theme } from "./theme.tsx";
+import "./styles/index.css";
+import { ChakraProvider } from "@chakra-ui/react";
+import { theme } from "./styles/theme.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <ChakraProvider theme={theme}>
       <App />
-    </ThemeProvider>
+    </ChakraProvider>
   </React.StrictMode>
 );
