@@ -62,7 +62,7 @@ export const Input = memo(
               borderRightRadius={showSubmit ? "0" : "12px"}
               border="1px solid transparent"
               _hover={{}}
-              _focusVisible={{ borderColor: "previsao.azul" }}
+              _focusVisible={{ borderColor: "previsao.laranja" }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && onSubmit && !isLoading) onSubmit();
               }}
