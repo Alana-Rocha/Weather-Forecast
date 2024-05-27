@@ -25,7 +25,7 @@ export const theme = extendTheme({
       html: { minHeight: "100vh", scrollBehavior: "smooth" },
       body: {
         minHeight: "100vh",
-        color: "previsao.azul",
+        color: "previsao.branco",
       },
     },
   },
