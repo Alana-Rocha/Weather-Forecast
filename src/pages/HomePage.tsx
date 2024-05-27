@@ -1,22 +1,25 @@
 import { Divider, Flex, Text } from "@chakra-ui/react";
+import { BsThermometerHigh } from "react-icons/bs";
+import { FiWind } from "react-icons/fi";
+import { GrLocation } from "react-icons/gr";
+import { PiDropBold } from "react-icons/pi";
+import { RiCheckboxBlankCircleLine, RiSearch2Line } from "react-icons/ri";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
-import { RiSearch2Line } from "react-icons/ri";
-import { GrLocation } from "react-icons/gr";
-import { DataCard } from "../components/DataCard";
+import { BoxItem } from "./BoxItem";
 
 // import { useCoordsStore } from "../stores/coords";
-type WeatherInfo = {
-  label: string;
-  value: string;
-};
+// type WeatherInfo = {
+//   label: string;
+//   value: string;
+// };
 
-const data: WeatherInfo[] = [
-  { label: "Temperatura", value: "32" },
-  { label: "Índice UV", value: "Extremo" },
-  { label: "Umidade", value: "20%" },
-  { label: "Vento", value: "12%" },
-];
+// const data: WeatherInfo[] = [
+//   { label: "Temperatura", value: "32" },
+//   { label: "Índice UV", value: "Extremo" },
+//   { label: "Umidade", value: "20%" },
+//   { label: "Vento", value: "12%" },
+// ];
 
 export const HomePage = () => {
   // const {
@@ -55,49 +58,18 @@ export const HomePage = () => {
         <Divider />
 
         <Flex alignItems="center">
-          <Flex
-            bg="rgba(250, 250, 250, 0.2)"
-            p={4}
-            borderRadius="md"
-            flexDir="column"
-            alignItems="center"
-          >
-            {data.map((item, index) => (
-              <DataCard key={index} {...item} />
-            ))}
-            {/* <Text>Temperatura</Text>
-            <Text>32</Text>
-          </Flex>
-          <Flex
-            bg="rgba(250, 250, 250, 0.2)"
-            p={4}
-            borderRadius="md"
-            flexDir="column"
-            alignItems="center"
-          >
-            <Text>Ìndice UV</Text>
-            <Text>Extremo</Text>
-          </Flex>
-          <Flex
-            bg="rgba(250, 250, 250, 0.2)"
-            p={4}
-            borderRadius="md"
-            flexDir="column"
-            alignItems="center"
-          >
-            <Text>Umidade</Text>
-            <Text>20%</Text>
-          </Flex>
-          <Flex
-            bg="rgba(250, 250, 250, 0.2)"
-            p={4}
-            borderRadius="md"
-            flexDir="column"
-            alignItems="center"
-          >
-            <Text>Vento</Text>
-            <Text>12%</Text> */}
-          </Flex>
+          <BoxItem
+            icon={<BsThermometerHigh />}
+            label={"Temperatura"}
+            value={"32%"}
+          />
+          <BoxItem
+            icon={<RiCheckboxBlankCircleLine />}
+            label={"Ìndice UV"}
+            value={"Extremo"}
+          />
+          <BoxItem icon={<PiDropBold />} label={"Umidade"} value={"20%"} />
+          <BoxItem icon={<FiWind />} label={"Vento"} value={"12%"} />
         </Flex>
       </Box>
     </Flex>
