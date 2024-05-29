@@ -4,14 +4,13 @@ export type BoxItemProps = {
   icon: JSX.Element;
   label: string;
   value: string;
-  maxW?: string;
+  //   maxW?: string;
 };
 
 export const BoxItem = ({
   icon,
   label,
   value,
-  maxW = "150px",
   ...rest
 }: BoxItemProps) => {
   return (
@@ -21,7 +20,7 @@ export const BoxItem = ({
       borderRadius="md"
       flexDir="column"
       alignItems="center"
-      maxW={maxW}
+      w="105px"
       fontSize="0.8rem"
       {...rest}
     >

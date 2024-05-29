@@ -20,3 +20,5 @@ export const App = () => {
 
   return erro ? <CoordsErroPage /> : <HomePage />;
 };
+
+

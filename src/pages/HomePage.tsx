@@ -14,13 +14,6 @@ import { BoxItem } from "./BoxItem";
 //   value: string;
 // };
 
-// const data: WeatherInfo[] = [
-//   { label: "Temperatura", value: "32" },
-//   { label: "Índice UV", value: "Extremo" },
-//   { label: "Umidade", value: "20%" },
-//   { label: "Vento", value: "12%" },
-// ];
-
 export const HomePage = () => {
   // const {
   //   states: { latitude, longitude },
@@ -37,11 +30,11 @@ export const HomePage = () => {
         flexDir="column"
         alignItems="center"
         justifyContent="center"
-        p="20px"
+        p={8}
         bg="linear-gradient(175deg, rgba(202,77,38,1) 0%, rgba(128,31,0,1) 100%);"
       >
-        <Flex alignItems="center" gap={1}>
-          <Input label="" placeholder="localização..." p={5} mr={2} />
+        <Flex alignItems="center" gap={2}>
+          <Input label="" placeholder="localização..." w="350px" mr={2} p={6} />
           <Flex>
             <RiSearch2Line size="25px" color="#fff" />
           </Flex>
@@ -57,7 +50,7 @@ export const HomePage = () => {
 
         <Divider />
 
-        <Flex alignItems="center">
+        <Flex alignItems="center" justifyContent="center" gap={3} p={5}>
           <BoxItem
             icon={<BsThermometerHigh />}
             label={"Temperatura"}

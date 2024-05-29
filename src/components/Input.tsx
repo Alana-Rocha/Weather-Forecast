@@ -58,7 +58,7 @@ export const Input = memo(
             <InputChakra
               fontSize="0.9rem"
               bgColor="previsao.cinza_claro"
-              borderRadius="12px"
+              borderRadius="10px"
               borderRightRadius={showSubmit ? "0" : "12px"}
               border="1px solid transparent"
               _hover={{}}
