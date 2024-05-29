@@ -1,14 +1,14 @@
 @font-face {
   font-family: "Sinkin";
   src: local("Sinkin"),
-    url("src/assets/fonts/sinkin-sans/SinkinSans-300Light.otf") format("opentype");
+    url("/assets/fonts/sinkin-sans/SinkinSans-300Light.otf") format("opentype");
   font-weight: 300;
 }
 
 @font-face {
   font-family: "Sinkin";
   src: local("Sinkin"),
-    url("src/assets/fonts/sinkin-sans/SinkinSans-400Regular.otf")
+    url("/assets/fonts/sinkin-sans/SinkinSans-400Regular.otf")
       format("opentype");
   font-weight: 400;
 }
@@ -17,14 +17,14 @@
   color: #0000003d;
   font-family: "Sinkin";
   src: local("Sinkin"),
-    url("src/assets/fonts/sinkin-sans/SinkinSans-500Medium.otf") format("opentype");
+    url("/assets/fonts/sinkin-sans/SinkinSans-500Medium.otf") format("opentype");
   font-weight: 500;
 }
 
 @font-face {
   font-family: "Sinkin";
   src: local("Sinkin"),
-    url("src/assets/fonts/sinkin-sans/SinkinSans-600SemiBold.otf")
+    url("/assets/fonts/sinkin-sans/SinkinSans-600SemiBold.otf")
       format("opentype");
   font-weight: 600;
 }
@@ -32,21 +32,21 @@
 @font-face {
   font-family: "Sinkin";
   src: local("Sinkin"),
-    url("src/assets/fonts/sinkin-sans/SinkinSans-700Bold.otf") format("opentype");
+    url("/assets/fonts/sinkin-sans/SinkinSans-700Bold.otf") format("opentype");
   font-weight: 700;
 }
 
 @font-face {
   font-family: "Sinkin";
   src: local("Sinkin"),
-    url("src/assets/fonts/sinkin-sans/SinkinSans-800Black.otf") format("opentype");
+    url("/assets/fonts/sinkin-sans/SinkinSans-800Black.otf") format("opentype");
   font-weight: 800;
 }
 
 @font-face {
   font-family: "Sinkin";
   src: local("Sinkin"),
-    url("src/assets/fonts/sinkin-sans/SinkinSans-800Black.otf") format("truetype");
+    url("/assets/fonts/sinkin-sans/SinkinSans-800Black.otf") format("truetype");
   font-weight: 800;
 }
 
