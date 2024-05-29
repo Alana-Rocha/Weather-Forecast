@@ -6,6 +6,7 @@ import { PiDropBold } from "react-icons/pi";
 import { RiCheckboxBlankCircleLine, RiSearch2Line } from "react-icons/ri";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
+import { mascaraTemperatura } from "../utils/conversao";
 import { BoxItem } from "./BoxItem";
 
 // import { useCoordsStore } from "../stores/coords";
@@ -27,10 +28,12 @@ export const HomePage = () => {
       bg="previsao.cinza_imagem"
     >
       <Box
+        minH="600px"
         flexDir="column"
         alignItems="center"
         justifyContent="center"
         p={8}
+        gap={10}
         bg="linear-gradient(175deg, rgba(202,77,38,1) 0%, rgba(128,31,0,1) 100%);"
       >
         <Flex alignItems="center" gap={2}>
@@ -43,26 +46,47 @@ export const HomePage = () => {
           </Flex>
         </Flex>
 
-        <Text>Sexta, 8 Dez 2023 | Horário Local: 09:26 AM</Text>
-        <Text textTransform="uppercase">Cariacica, ES</Text>
-        <Text>30 º C</Text>
-        <Text>Limpo</Text>
+        <Flex flexDir="column" gap={5} alignItems="center" fontSize="1.2rem">
+          <Text fontSize="1rem" fontWeight="300">
+            Sexta, 8 Dez 2023 | Horário Local: 09:26 AM
+          </Text>
+          <Text textTransform="uppercase">Cariacica, ES</Text>
+          <Text fontSize="4rem" textShadow="#0000003d 0px 4px 4px">
+            {mascaraTemperatura(30)}
+          </Text>
+          <Text fontWeight="300"> Limpo</Text>
+        </Flex>
 
-        <Divider />
-
-        <Flex alignItems="center" justifyContent="center" gap={3} p={5}>
-          <BoxItem
-            icon={<BsThermometerHigh />}
-            label={"Temperatura"}
-            value={"32%"}
-          />
-          <BoxItem
-            icon={<RiCheckboxBlankCircleLine />}
-            label={"Ìndice UV"}
-            value={"Extremo"}
-          />
-          <BoxItem icon={<PiDropBold />} label={"Umidade"} value={"20%"} />
-          <BoxItem icon={<FiWind />} label={"Vento"} value={"12%"} />
+        <Flex
+          alignItems="center"
+          flexDir="column"
+          justifyContent="center"
+          gap={5}
+          p={2}
+        >
+          <Divider />
+          <Flex gap={3}>
+            <BoxItem
+              icon={<BsThermometerHigh size="30px" />}
+              label={"Temperatura"}
+              value={"32%"}
+            />
+            <BoxItem
+              icon={<RiCheckboxBlankCircleLine size="30px" />}
+              label={"Ìndice UV"}
+              value={"Extremo"}
+            />
+            <BoxItem
+              icon={<PiDropBold size="30px" />}
+              label={"Umidade"}
+              value={"20%"}
+            />
+            <BoxItem
+              icon={<FiWind size="30px" />}
+              label={"Vento"}
+              value={"12%"}
+            />
+          </Flex>
         </Flex>
       </Box>
     </Flex>

@@ -14,6 +14,7 @@
 }
 
 @font-face {
+  color: #0000003d;
   font-family: "Sinkin";
   src: local("Sinkin"),
     url("src/assets/fonts/sinkin-sans/SinkinSans-500Medium.otf") format("opentype");

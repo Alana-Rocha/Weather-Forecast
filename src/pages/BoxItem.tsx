@@ -7,20 +7,15 @@ export type BoxItemProps = {
   //   maxW?: string;
 };
 
-export const BoxItem = ({
-  icon,
-  label,
-  value,
-  ...rest
-}: BoxItemProps) => {
+export const BoxItem = ({ icon, label, value, ...rest }: BoxItemProps) => {
   return (
     <Flex
       bg="rgba(250, 250, 250, 0.2)"
-      p={4}
+      p={5}
       borderRadius="md"
       flexDir="column"
       alignItems="center"
-      w="105px"
+      w="110px"
       fontSize="0.8rem"
       {...rest}
     >
