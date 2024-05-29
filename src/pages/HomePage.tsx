@@ -16,10 +16,6 @@ import { BoxItem } from "./BoxItem";
 // };
 
 export const HomePage = () => {
-  // const {
-  //   states: { latitude, longitude },
-  // } = useCoordsStore();
-
   return (
     <Flex
       height="100vh"

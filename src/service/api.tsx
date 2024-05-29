@@ -1,11 +1,6 @@
-
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://api.openweathermap.org/data/3.0/onecall",
-  params: {
-    appid: "a9e80247a0d68ccd9d2a8a8da46223cd",
-  },
+  baseURL: "https://api.openweathermap.org/data/2.5",
+  params: { appid: "fa40971ab26fd7aa79315053482ddc96", lang: "pt_br" },
 });
-
-// https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
