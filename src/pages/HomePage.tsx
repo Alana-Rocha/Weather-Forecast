@@ -1,4 +1,5 @@
-import { Divider, Flex, Text } from "@chakra-ui/react";
+import { Divider, Flex, Spinner, Text } from "@chakra-ui/react";
+import { useRef } from "react";
 import { BsThermometerHigh } from "react-icons/bs";
 import { FiWind } from "react-icons/fi";
 import { GrLocation } from "react-icons/gr";
@@ -6,6 +7,7 @@ import { PiDropBold } from "react-icons/pi";
 import { RiCheckboxBlankCircleLine, RiSearch2Line } from "react-icons/ri";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
+import { useMutationWeather } from "../service/useMutationWeather";
 import { mascaraTemperatura } from "../utils/conversao";
 import { BoxItem } from "./BoxItem";
 
@@ -16,6 +18,14 @@ import { BoxItem } from "./BoxItem";
 // };
 
 export const HomePage = () => {
+  const { mutateAsync, isLoading } = useMutationWeather();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const submit = async () => {
+    await mutateAsync(inputRef.current?.value || "");
+    console.log();
+  };
+
   return (
     <Flex
       height="100vh"
@@ -32,20 +42,28 @@ export const HomePage = () => {
         gap={10}
         bg="linear-gradient(175deg, rgba(202,77,38,1) 0%, rgba(128,31,0,1) 100%);"
       >
-        <Flex alignItems="center" gap={2}>
+        <Flex alignItems="center" justifyContent="center" gap={2}>
           <Input
+            ref={inputRef}
             label=""
+            color="#000"
             placeholder="Digite o nome da cidade..."
             w="350px"
             mr={2}
             p={6}
           />
-          <Flex>
-            <RiSearch2Line size="25px" color="#fff" />
-          </Flex>
-          <Flex>
-            <GrLocation size="25px" color="#fff" />
-          </Flex>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <RiSearch2Line
+              size="30px"
+              color="#fff"
+              onClick={submit}
+              cursor="pointer"
+            />
+          )}
+
+          <GrLocation size="30px" color="#fff" />
         </Flex>
 
         <Flex flexDir="column" gap={5} alignItems="center" fontSize="1.2rem">
