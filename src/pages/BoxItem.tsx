@@ -18,10 +18,11 @@ export const BoxItem = ({ icon, label, value, ...rest }: BoxItemProps) => {
       w="110px"
       fontSize="0.8rem"
       {...rest}
+      gap={1}
     >
       {icon}
       <Text>{label}</Text>
-      <Text>{value}</Text>
+      <Text fontWeight="300">{value}</Text>
     </Flex>
   );
 };

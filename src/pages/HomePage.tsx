@@ -37,7 +37,13 @@ export const HomePage = () => {
         bg="linear-gradient(175deg, rgba(202,77,38,1) 0%, rgba(128,31,0,1) 100%);"
       >
         <Flex alignItems="center" gap={2}>
-          <Input label="" placeholder="localização..." w="350px" mr={2} p={6} />
+          <Input
+            label=""
+            placeholder="Digite o nome da cidade..."
+            w="350px"
+            mr={2}
+            p={6}
+          />
           <Flex>
             <RiSearch2Line size="25px" color="#fff" />
           </Flex>
@@ -54,7 +60,7 @@ export const HomePage = () => {
           <Text fontSize="4rem" textShadow="#0000003d 0px 4px 4px">
             {mascaraTemperatura(30)}
           </Text>
-          <Text fontWeight="300"> Limpo</Text>
+          <Text fontWeight="300">Limpo</Text>
         </Flex>
 
         <Flex
