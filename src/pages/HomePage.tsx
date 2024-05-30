@@ -36,20 +36,17 @@ export const HomePage = () => {
       <Box
         minH="600px"
         flexDir="column"
-        alignItems="center"
-        justifyContent="center"
-        p={8}
+        p={7}
         gap={10}
         bg="linear-gradient(175deg, rgba(202,77,38,1) 0%, rgba(128,31,0,1) 100%);"
       >
-        <Flex w="100%" alignItems="center" justifyContent="space-between" gap={2}>
+        <Flex alignItems="center" justifyContent="center" gap={2}>
           <Input
+            maxW="320px"
             ref={inputRef}
             label=""
             color="#000"
             placeholder="Digite o nome da cidade..."
-            w="350px"
-            p={6}
           />
           {isLoading ? (
             <Spinner />
