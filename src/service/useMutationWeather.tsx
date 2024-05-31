@@ -1,6 +1,9 @@
 import { useMutation } from "react-query";
 import { api } from "./api";
-import { PrevisaoResponse } from "./previsaoType";
+import { AxiosError } from "axios";
+import { useToast } from "@chakra-ui/react";
+import { ErrorHandled } from "./types/errorHandled";
+import { PrevisaoResponse } from "./types/previsao";
 
 const consultarDados = async (cidade: string) => {
   const { data } = await api.get<PrevisaoResponse>("weather", {
@@ -12,5 +15,17 @@ const consultarDados = async (cidade: string) => {
 };
 
 export const useMutationWeather = () => {
-  return useMutation(consultarDados);
+  const toast = useToast();
+
+  return useMutation(consultarDados, {
+    onError: (error: AxiosError<ErrorHandled>) => {
+      toast({
+        status: "warning",
+        isClosable: true,
+        duration: 3000,
+        title: "Ocorreu um erro ao buscar cidade",
+        description: error.response?.data.message,
+      });
+    },
+  });
 };
