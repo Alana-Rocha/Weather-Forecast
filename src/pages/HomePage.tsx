@@ -1,15 +1,16 @@
 import { Divider, Flex, Spinner, Text } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import { BsThermometerHigh } from "react-icons/bs";
 import { FiWind } from "react-icons/fi";
 import { GrLocation } from "react-icons/gr";
 import { PiDropBold } from "react-icons/pi";
-import { RiCheckboxBlankCircleLine, RiSearch2Line } from "react-icons/ri";
+import { RiSearch2Line } from "react-icons/ri";
+import { TbWashTemperature4 } from "react-icons/tb";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
 import { PrevisaoResponse } from "../service/types/previsao";
 import { useMutationWeather } from "../service/useMutationWeather";
 import { mascaraTemperatura } from "../utils/conversao";
+import { localDate } from "../utils/localDate";
 import { BoxItem } from "./BoxItem";
 
 // import { useCoordsStore } from "../stores/coords";
@@ -70,7 +71,7 @@ export const HomePage = () => {
 
         <Flex flexDir="column" gap={5} alignItems="center" fontSize="1.2rem">
           <Text fontSize="1rem" fontWeight="300">
-            Sexta, 8 Dez 2023 | Horário Local: 09:26 AM
+            {localDate}
           </Text>
           <Text textTransform="capitalize">{weatherData?.name}</Text>
           <Text fontSize="4rem" textShadow="#0000003d 0px 4px 4px">
@@ -91,24 +92,19 @@ export const HomePage = () => {
           <Divider />
           <Flex gap={3}>
             <BoxItem
-              icon={<BsThermometerHigh size="27px" />}
-              label={"Temperatura"}
-              value={"32%"}
-            />
-            <BoxItem
-              icon={<RiCheckboxBlankCircleLine size="27px" />}
-              label={"Ìndice UV"}
-              value={"Extremo"}
+              icon={<FiWind size="27px" />}
+              label={"Vento"}
+              value={`${weatherData?.wind?.speed} km/h`}
             />
             <BoxItem
               icon={<PiDropBold size="27px" />}
               label={"Umidade"}
-              value={"20%"}
+              value={`${weatherData?.main?.humidity}%`}
             />
             <BoxItem
-              icon={<FiWind size="27px" />}
-              label={"Vento"}
-              value={"12%"}
+              icon={<TbWashTemperature4 size="27px" />}
+              label={"Pressão"}
+              value={`${weatherData?.main?.pressure} hPA`}
             />
           </Flex>
         </Flex>

@@ -3,7 +3,7 @@ import { Flex, Text } from "@chakra-ui/react";
 export type BoxItemProps = {
   icon: JSX.Element;
   label: string;
-  value: string;
+  value: string | number;
   //   maxW?: string;
 };
 
@@ -15,7 +15,7 @@ export const BoxItem = ({ icon, label, value, ...rest }: BoxItemProps) => {
       borderRadius="md"
       flexDir="column"
       alignItems="center"
-      w="110px"
+      w="115px"
       fontSize="0.8rem"
       {...rest}
       gap={1}
