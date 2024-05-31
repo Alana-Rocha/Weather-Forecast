@@ -1,7 +1,7 @@
+import { useToast } from "@chakra-ui/react";
+import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { api } from "./api";
-import { AxiosError } from "axios";
-import { useToast } from "@chakra-ui/react";
 import { ErrorHandled } from "./types/errorHandled";
 import { PrevisaoResponse } from "./types/previsao";
 
@@ -20,9 +20,10 @@ export const useMutationWeather = () => {
   return useMutation(consultarDados, {
     onError: (error: AxiosError<ErrorHandled>) => {
       toast({
-        status: "warning",
+        status: "error",
         isClosable: true,
         duration: 3000,
+        position: "bottom",
         title: "Ocorreu um erro ao buscar cidade",
         description: error.response?.data.message,
       });

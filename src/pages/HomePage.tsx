@@ -1,5 +1,5 @@
 import { Divider, Flex, Spinner, Text } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { BsThermometerHigh } from "react-icons/bs";
 import { FiWind } from "react-icons/fi";
 import { GrLocation } from "react-icons/gr";
@@ -7,6 +7,7 @@ import { PiDropBold } from "react-icons/pi";
 import { RiCheckboxBlankCircleLine, RiSearch2Line } from "react-icons/ri";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
+import { PrevisaoResponse } from "../service/types/previsao";
 import { useMutationWeather } from "../service/useMutationWeather";
 import { mascaraTemperatura } from "../utils/conversao";
 import { BoxItem } from "./BoxItem";
@@ -20,9 +21,14 @@ import { BoxItem } from "./BoxItem";
 export const HomePage = () => {
   const { mutateAsync, isLoading } = useMutationWeather();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [weatherData, setWeatherData] = useState({} as PrevisaoResponse);
 
   const submit = async () => {
-    await mutateAsync(inputRef.current?.value || "");
+    await mutateAsync(inputRef.current?.value || "", {
+      onSuccess: (data) => {
+        setWeatherData(data);
+      },
+    });
     console.log();
   };
 
@@ -52,25 +58,27 @@ export const HomePage = () => {
             <Spinner />
           ) : (
             <RiSearch2Line
-              size="30px"
+              size="27px"
               color="#fff"
               onClick={submit}
               cursor="pointer"
             />
           )}
 
-          <GrLocation size="30px" color="#fff" />
+          <GrLocation size="27px" color="#fff" />
         </Flex>
 
         <Flex flexDir="column" gap={5} alignItems="center" fontSize="1.2rem">
           <Text fontSize="1rem" fontWeight="300">
             Sexta, 8 Dez 2023 | Horário Local: 09:26 AM
           </Text>
-          <Text textTransform="uppercase">Cariacica, ES</Text>
+          <Text textTransform="capitalize">{weatherData?.name}</Text>
           <Text fontSize="4rem" textShadow="#0000003d 0px 4px 4px">
-            {mascaraTemperatura(30)}
+            {mascaraTemperatura(Math.floor(weatherData?.main?.temp))}
           </Text>
-          <Text fontWeight="300">Limpo</Text>
+          <Text fontWeight="300" textTransform="capitalize">
+            {weatherData?.weather && weatherData?.weather[0]?.description}
+          </Text>
         </Flex>
 
         <Flex
@@ -83,22 +91,22 @@ export const HomePage = () => {
           <Divider />
           <Flex gap={3}>
             <BoxItem
-              icon={<BsThermometerHigh size="30px" />}
+              icon={<BsThermometerHigh size="27px" />}
               label={"Temperatura"}
               value={"32%"}
             />
             <BoxItem
-              icon={<RiCheckboxBlankCircleLine size="30px" />}
+              icon={<RiCheckboxBlankCircleLine size="27px" />}
               label={"Ìndice UV"}
               value={"Extremo"}
             />
             <BoxItem
-              icon={<PiDropBold size="30px" />}
+              icon={<PiDropBold size="27px" />}
               label={"Umidade"}
               value={"20%"}
             />
             <BoxItem
-              icon={<FiWind size="30px" />}
+              icon={<FiWind size="27px" />}
               label={"Vento"}
               value={"12%"}
             />
