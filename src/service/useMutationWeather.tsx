@@ -1,15 +1,31 @@
 import { useToast } from "@chakra-ui/react";
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { api } from "./api";
+import { apiCity, apiCoord } from "./api";
+import { CityResponse } from "./types/city";
 import { ErrorHandled } from "./types/errorHandled";
-import { PrevisaoResponse } from "./types/weather";
 
-const consultarDados = async (cidade: string) => {
-  const { data } = await api.get<PrevisaoResponse>("weather", {
-    params: { q: cidade, units: "metric" },
+type Params = {
+  cidade?: string;
+  coordenada?: string;
+};
+
+const consultarDados = async ({ cidade, coordenada }: Params) => {
+  if (cidade) {
+    const { data } = await apiCity.get<CityResponse>("/direct", {
+      params: { q: cidade },
+    });
+
+    coordenada = `${data.lat},${data.lon}`;
+  }
+
+  if (!coordenada) return;
+
+  const [lat, lon] = coordenada.split(",");
+
+  const { data } = await apiCoord.get("/onecall", {
+    params: { lat: lat.replace(" ", ""), lon: lon.replace(" ", "") },
   });
-
   console.log(data);
   return data;
 };

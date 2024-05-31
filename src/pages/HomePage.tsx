@@ -1,5 +1,6 @@
-import { Divider, Flex, Image, Spinner, Text } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { Divider, Flex, Spinner, Text } from "@chakra-ui/react";
+import { DateTime } from "luxon";
+import { useEffect, useRef, useState } from "react";
 import { FiWind } from "react-icons/fi";
 import { GrLocation } from "react-icons/gr";
 import { PiDropBold } from "react-icons/pi";
@@ -7,10 +8,8 @@ import { RiSearch2Line } from "react-icons/ri";
 import { TbWashTemperature4 } from "react-icons/tb";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
-import { PrevisaoResponse } from "../service/types/weather";
+import { WeatherResponse } from "../service/types/weather";
 import { useMutationWeather } from "../service/useMutationWeather";
-import { mascaraTemperatura } from "../utils/conversao";
-import { localDate } from "../utils/localDate";
 import { BoxItem } from "./BoxItem";
 
 // import { useCoordsStore } from "../stores/coords";
@@ -22,16 +21,26 @@ import { BoxItem } from "./BoxItem";
 export const HomePage = () => {
   const { mutateAsync, isLoading } = useMutationWeather();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [weatherData, setWeatherData] = useState({} as PrevisaoResponse);
+  const [weatherData, setWeatherData] = useState({} as WeatherResponse);
 
   const submit = async () => {
-    await mutateAsync(inputRef.current?.value || "", {
-      onSuccess: (data) => {
-        setWeatherData(data);
-      },
-    });
-    console.log();
+    await mutateAsync(
+      { cidade: inputRef.current?.value || "" },
+      {
+        onSuccess: (data) => {
+          setWeatherData(data);
+        },
+      }
+    );
   };
+
+  // const localDate = DateTime.fromSeconds(weatherData?.dt)
+  //   .setLocale("pt-BR")
+  //   .toFormat("cccc, d LLL yyyy | hh:mm a");
+
+  useEffect(() => {
+    DateTime.fromSeconds(1717178400).toISO();
+  }, []);
 
   return (
     <Flex
@@ -71,22 +80,22 @@ export const HomePage = () => {
 
         <Flex flexDir="column" gap={5} alignItems="center" fontSize="1.2rem">
           <Text fontSize="1rem" fontWeight="300">
-            {localDate}
+            {/* {localDate} */}
           </Text>
-          <Text textTransform="capitalize">{weatherData?.name}</Text>
+          <Text textTransform="capitalize">{inputRef.current?.value}</Text>
 
           <Text fontSize="4rem" textShadow="#0000003d 0px 4px 4px">
-            {mascaraTemperatura(Math.floor(weatherData?.main?.temp))}
+            {/* {mascaraTemperatura(Math.floor(weatherData.hourly))} */}
           </Text>
           <Flex alignItems="center">
             <Text fontWeight="300" textTransform="capitalize">
-              {weatherData?.weather && weatherData?.weather[0]?.description}
+              {/* {weatherData?.weather && weatherData?.weather[0]?.description} */}
             </Text>
-            {weatherData?.weather && (
+            {/* {weatherData?.weather && (
               <Image
                 src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
               />
-            )}
+            )} */}
           </Flex>
         </Flex>
 
@@ -102,17 +111,17 @@ export const HomePage = () => {
             <BoxItem
               icon={<FiWind size="27px" />}
               label={"Vento"}
-              value={`${weatherData?.wind?.speed} km/h`}
+              value={`${""} km/h`}
             />
             <BoxItem
               icon={<PiDropBold size="27px" />}
               label={"Umidade"}
-              value={`${weatherData?.main?.humidity}%`}
+              value={`${""}%`}
             />
             <BoxItem
               icon={<TbWashTemperature4 size="27px" />}
               label={"Pressão"}
-              value={`${weatherData?.main?.pressure} hPA`}
+              value={`${""} hPA`}
             />
           </Flex>
         </Flex>

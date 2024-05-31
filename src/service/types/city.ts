@@ -1,0 +1,41 @@
+type LocalNames = {
+  zh?: string;
+  de?: string;
+  tr?: string;
+  es?: string;
+  gl?: string;
+  ca?: string;
+  oc?: string;
+  cs?: string;
+  lt?: string;
+  gd?: string;
+  ko?: string;
+  sr?: string;
+  br?: string;
+  mk?: string;
+  ja?: string;
+  eu?: string;
+  uk?: string;
+  ru?: string;
+  pl?: string;
+  ar?: string;
+  kn?: string;
+  it?: string;
+  hi?: string;
+  eo?: string;
+  he?: string;
+  pt?: string;
+  fr?: string;
+  el?: string;
+  be?: string;
+  en?: string;
+};
+
+export type CityResponse = {
+  name: string;
+  local_names: LocalNames;
+  lat: number;
+  lon: number;
+  country: string;
+  state?: string;
+};
