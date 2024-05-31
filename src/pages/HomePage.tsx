@@ -1,4 +1,4 @@
-import { Divider, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Divider, Flex, Image, Spinner, Text } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { FiWind } from "react-icons/fi";
 import { GrLocation } from "react-icons/gr";
@@ -7,7 +7,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import { TbWashTemperature4 } from "react-icons/tb";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
-import { PrevisaoResponse } from "../service/types/previsao";
+import { PrevisaoResponse } from "../service/types/weather";
 import { useMutationWeather } from "../service/useMutationWeather";
 import { mascaraTemperatura } from "../utils/conversao";
 import { localDate } from "../utils/localDate";
@@ -49,7 +49,7 @@ export const HomePage = () => {
       >
         <Flex alignItems="center" justifyContent="center" gap={2}>
           <Input
-            maxW="320px"
+            maxW="300px"
             ref={inputRef}
             label=""
             color="#000"
@@ -74,12 +74,20 @@ export const HomePage = () => {
             {localDate}
           </Text>
           <Text textTransform="capitalize">{weatherData?.name}</Text>
+
           <Text fontSize="4rem" textShadow="#0000003d 0px 4px 4px">
             {mascaraTemperatura(Math.floor(weatherData?.main?.temp))}
           </Text>
-          <Text fontWeight="300" textTransform="capitalize">
-            {weatherData?.weather && weatherData?.weather[0]?.description}
-          </Text>
+          <Flex alignItems="center">
+            <Text fontWeight="300" textTransform="capitalize">
+              {weatherData?.weather && weatherData?.weather[0]?.description}
+            </Text>
+            {weatherData?.weather && (
+              <Image
+                src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
+              />
+            )}
+          </Flex>
         </Flex>
 
         <Flex

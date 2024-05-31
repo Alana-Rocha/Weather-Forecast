@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { api } from "./api";
 import { ErrorHandled } from "./types/errorHandled";
-import { PrevisaoResponse } from "./types/previsao";
+import { PrevisaoResponse } from "./types/weather";
 
 const consultarDados = async (cidade: string) => {
   const { data } = await api.get<PrevisaoResponse>("weather", {
