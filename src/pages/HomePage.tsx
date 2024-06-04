@@ -1,15 +1,17 @@
-import { Divider, Flex, Spinner, Text } from "@chakra-ui/react";
-import { DateTime } from "luxon";
-import { useEffect, useRef, useState } from "react";
+import { Divider, Flex, Image, Spinner, Text } from "@chakra-ui/react";
+import { useRef, useState } from "react";
 import { FiWind } from "react-icons/fi";
+import { GoCircle } from "react-icons/go";
 import { GrLocation } from "react-icons/gr";
 import { PiDropBold } from "react-icons/pi";
 import { RiSearch2Line } from "react-icons/ri";
-import { TbWashTemperature4 } from "react-icons/tb";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
-import { WeatherResponse } from "../service/types/weather";
-import { useMutationWeather } from "../service/useMutationWeather";
+import {
+  ConsultarDadosResponse,
+  useMutationWeather,
+} from "../service/useMutationWeather";
+import { mascaraTemperatura } from "../utils/conversao";
 import { BoxItem } from "./BoxItem";
 
 // import { useCoordsStore } from "../stores/coords";
@@ -21,7 +23,7 @@ import { BoxItem } from "./BoxItem";
 export const HomePage = () => {
   const { mutateAsync, isLoading } = useMutationWeather();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [weatherData, setWeatherData] = useState({} as WeatherResponse);
+  const [weatherData, setWeatherData] = useState({} as ConsultarDadosResponse);
 
   const submit = async () => {
     await mutateAsync(
@@ -37,10 +39,6 @@ export const HomePage = () => {
   // const localDate = DateTime.fromSeconds(weatherData?.dt)
   //   .setLocale("pt-BR")
   //   .toFormat("cccc, d LLL yyyy | hh:mm a");
-
-  useEffect(() => {
-    DateTime.fromSeconds(1717178400).toISO();
-  }, []);
 
   return (
     <Flex
@@ -82,20 +80,22 @@ export const HomePage = () => {
           <Text fontSize="1rem" fontWeight="300">
             {/* {localDate} */}
           </Text>
-          <Text textTransform="capitalize">{inputRef.current?.value}</Text>
+          <Text textTransform="capitalize">{weatherData.cityName}</Text>
 
           <Text fontSize="4rem" textShadow="#0000003d 0px 4px 4px">
-            {/* {mascaraTemperatura(Math.floor(weatherData.hourly))} */}
+            {weatherData?.hourly &&
+              mascaraTemperatura(Math.floor(weatherData?.hourly[0].temp))}
           </Text>
           <Flex alignItems="center">
             <Text fontWeight="300" textTransform="capitalize">
-              {/* {weatherData?.weather && weatherData?.weather[0]?.description} */}
+              {weatherData?.current?.weather &&
+                weatherData?.current?.weather[0]?.description}
             </Text>
-            {/* {weatherData?.weather && (
+            {weatherData?.current?.weather && (
               <Image
-                src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
+                src={`http://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}.png`}
               />
-            )} */}
+            )}
           </Flex>
         </Flex>
 
@@ -111,17 +111,17 @@ export const HomePage = () => {
             <BoxItem
               icon={<FiWind size="27px" />}
               label={"Vento"}
-              value={`${""} km/h`}
+              value={`${weatherData?.current?.wind_speed} km/h`}
             />
             <BoxItem
               icon={<PiDropBold size="27px" />}
               label={"Umidade"}
-              value={`${""}%`}
+              value={`${weatherData?.current?.humidity}%`}
             />
             <BoxItem
-              icon={<TbWashTemperature4 size="27px" />}
-              label={"Pressão"}
-              value={`${""} hPA`}
+              icon={<GoCircle size="27px" />}
+              label={"Índice UV"}
+              value={`${weatherData?.current?.uvi}`}
             />
           </Flex>
         </Flex>

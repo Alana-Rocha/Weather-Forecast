@@ -4,10 +4,12 @@ import { HomePage } from "./pages/HomePage";
 import { useCoordsStore } from "./stores/coords";
 
 export const App = () => {
-  const {
-    states: { isLoading, erro },
-    actions: { setLatLong, setErro },
-  } = useCoordsStore();
+  const [isLoading, erro, setLatLong, setErro] = useCoordsStore((s) => [
+    s.states.isLoading,
+    s.states.erro,
+    s.actions.setLatLong,
+    s.actions.setErro,
+  ]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -20,5 +22,3 @@ export const App = () => {
 
   return erro ? <CoordsErroPage /> : <HomePage />;
 };
-
-

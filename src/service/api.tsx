@@ -9,5 +9,5 @@ export const apiCity = axios.create({
 
 export const apiCoord = axios.create({
   baseURL: "https://api.openweathermap.org/data/3.0",
-  params: { appid: apiKey },
+  params: { appid: apiKey, units: "metric" },
 });

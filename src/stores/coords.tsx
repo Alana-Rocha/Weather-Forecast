@@ -22,7 +22,6 @@ export const useCoordsStore = create<CoordsStore>((set) => ({
       set({ states: { isLoading: false, latitude, longitude } }),
     setErro: (locationError) => {
       let erro = "";
-
       switch (locationError.code) {
         case locationError.PERMISSION_DENIED:
           erro = "É necessario permissão de localização para o site funcionar";

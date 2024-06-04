@@ -107,4 +107,5 @@ export type WeatherResponse = {
     hourly: HourlyWeather[];
     daily: DailyWeather[];
     alerts: Alert[];
+    
 };

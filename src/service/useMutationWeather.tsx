@@ -4,30 +4,39 @@ import { useMutation } from "react-query";
 import { apiCity, apiCoord } from "./api";
 import { CityResponse } from "./types/city";
 import { ErrorHandled } from "./types/errorHandled";
+import { WeatherResponse } from "./types/weather";
 
 type Params = {
   cidade?: string;
   coordenada?: string;
 };
 
-const consultarDados = async ({ cidade, coordenada }: Params) => {
+export type ConsultarDadosResponse = {
+  cityName: string;
+} & WeatherResponse;
+
+const consultarDados = async ({
+  cidade,
+  coordenada,
+}: Params): Promise<ConsultarDadosResponse> => {
+  let cityName = "";
   if (cidade) {
-    const { data } = await apiCity.get<CityResponse>("/direct", {
+    const { data } = await apiCity.get<CityResponse[]>("/direct", {
       params: { q: cidade },
     });
-
-    coordenada = `${data.lat},${data.lon}`;
+    cityName = data[0].name;
+    coordenada = `${data[0].lat},${data[0].lon}`;
   }
 
-  if (!coordenada) return;
+  if (!coordenada) return {} as ConsultarDadosResponse;
 
   const [lat, lon] = coordenada.split(",");
+  console.log(lat, lon);
 
-  const { data } = await apiCoord.get("/onecall", {
+  const { data } = await apiCoord.get<WeatherResponse>("/onecall", {
     params: { lat: lat.replace(" ", ""), lon: lon.replace(" ", "") },
   });
-  console.log(data);
-  return data;
+  return { cityName, ...data };
 };
 
 export const useMutationWeather = () => {
