@@ -26,12 +26,12 @@ const consultarDados = async ({
     });
     cityName = data[0].name;
     coordenada = `${data[0].lat},${data[0].lon}`;
+    // console.log(data);
   }
 
   if (!coordenada) return {} as ConsultarDadosResponse;
 
   const [lat, lon] = coordenada.split(",");
-  console.log(lat, lon);
 
   const { data } = await apiCoord.get<WeatherResponse>("/onecall", {
     params: { lat: lat.replace(" ", ""), lon: lon.replace(" ", "") },
@@ -48,7 +48,7 @@ export const useMutationWeather = () => {
         status: "error",
         isClosable: true,
         duration: 3000,
-        position: "bottom",
+        // position: "bottom",
         title: "Ocorreu um erro ao buscar cidade",
         description: error.response?.data.message,
       });

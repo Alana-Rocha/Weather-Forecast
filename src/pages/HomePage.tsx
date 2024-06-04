@@ -1,9 +1,7 @@
 import { Divider, Flex, Image, Spinner, Text } from "@chakra-ui/react";
-import { useRef, useState } from "react";
-import { FiWind } from "react-icons/fi";
-import { GoCircle } from "react-icons/go";
+import { useEffect, useRef, useState } from "react";
 import { GrLocation } from "react-icons/gr";
-import { PiDropBold } from "react-icons/pi";
+import { PiCircleLight, PiDropSimpleLight, PiWindLight } from "react-icons/pi";
 import { RiSearch2Line } from "react-icons/ri";
 import { Box } from "../components/Box";
 import { Input } from "../components/Input";
@@ -11,19 +9,38 @@ import {
   ConsultarDadosResponse,
   useMutationWeather,
 } from "../service/useMutationWeather";
+import { useCoordsStore } from "../stores/coords";
 import { mascaraTemperatura } from "../utils/conversao";
 import { BoxItem } from "./BoxItem";
-
-// import { useCoordsStore } from "../stores/coords";
-// type WeatherInfo = {
-//   label: string;
-//   value: string;
-// };
 
 export const HomePage = () => {
   const { mutateAsync, isLoading } = useMutationWeather();
   const inputRef = useRef<HTMLInputElement>(null);
   const [weatherData, setWeatherData] = useState({} as ConsultarDadosResponse);
+
+  const [latitude, longitude] = useCoordsStore((s) => [
+    s.states.latitude,
+    s.states.longitude,
+  ]);
+
+  // const localDefault = () => {
+  //   if(latitude && longitude) {
+  //     setLatLong(latitude, longitude)
+  //   }
+  // }
+
+  useEffect(() => {
+    (async () => {
+      await mutateAsync(
+        { coordenada: `${latitude},${longitude}` },
+        {
+          onSuccess: (data) => {
+            setWeatherData(data);
+          },
+        }
+      );
+    })();
+  }, [latitude, longitude, mutateAsync]);
 
   const submit = async () => {
     await mutateAsync(
@@ -35,6 +52,8 @@ export const HomePage = () => {
       }
     );
   };
+
+  // console.log(latitude, longitude);
 
   // const localDate = DateTime.fromSeconds(weatherData?.dt)
   //   .setLocale("pt-BR")
@@ -109,17 +128,17 @@ export const HomePage = () => {
           <Divider />
           <Flex gap={3}>
             <BoxItem
-              icon={<FiWind size="27px" />}
+              icon={<PiWindLight size="27px" />}
               label={"Vento"}
               value={`${weatherData?.current?.wind_speed} km/h`}
             />
             <BoxItem
-              icon={<PiDropBold size="27px" />}
+              icon={<PiDropSimpleLight size="27px" />}
               label={"Umidade"}
               value={`${weatherData?.current?.humidity}%`}
             />
             <BoxItem
-              icon={<GoCircle size="27px" />}
+              icon={<PiCircleLight size="27px" />}
               label={"Índice UV"}
               value={`${weatherData?.current?.uvi}`}
             />
