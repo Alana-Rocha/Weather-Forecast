@@ -4,14 +4,14 @@ import { GrLocation } from "react-icons/gr";
 import { PiCircleLight, PiDropSimpleLight, PiWindLight } from "react-icons/pi";
 import { RiSearch2Line } from "react-icons/ri";
 import { Box } from "../components/Box";
+import { BoxItem } from "../components/BoxItem";
 import { Input } from "../components/Input";
 import {
   ConsultarDadosResponse,
   useMutationWeather,
-} from "../service/useMutationWeather";
+} from "../hooks/useMutationWeather";
 import { useCoordsStore } from "../stores/coords";
 import { mascaraTemperatura } from "../utils/conversao";
-import { BoxItem } from "./BoxItem";
 
 export const HomePage = () => {
   const { mutateAsync, isLoading } = useMutationWeather();
@@ -22,12 +22,6 @@ export const HomePage = () => {
     s.states.latitude,
     s.states.longitude,
   ]);
-
-  // const localDefault = () => {
-  //   if(latitude && longitude) {
-  //     setLatLong(latitude, longitude)
-  //   }
-  // }
 
   useEffect(() => {
     (async () => {
@@ -52,12 +46,6 @@ export const HomePage = () => {
       }
     );
   };
-
-  // console.log(latitude, longitude);
-
-  // const localDate = DateTime.fromSeconds(weatherData?.dt)
-  //   .setLocale("pt-BR")
-  //   .toFormat("cccc, d LLL yyyy | hh:mm a");
 
   return (
     <Flex

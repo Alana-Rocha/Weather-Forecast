@@ -1,10 +1,13 @@
 import { useToast } from "@chakra-ui/react";
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { apiCity, apiCoord } from "./api";
-import { CityResponse } from "./types/city";
-import { ErrorHandled } from "./types/errorHandled";
-import { WeatherResponse } from "./types/weather";
+import { ErrorHandled } from "../service/types/errorHandled";
+import { WeatherResponse } from "../service/types/weather";
+import {
+  getCity,
+  getCityName,
+  getWeatherData,
+} from "../service/weatherService";
 
 type Params = {
   cidade?: string;
@@ -20,22 +23,25 @@ const consultarDados = async ({
   coordenada,
 }: Params): Promise<ConsultarDadosResponse> => {
   let cityName = "";
+  let coord = coordenada || "";
+
+  const coordSplit = coord.split(",");
+
+  const lat = +coordSplit[0].replace(" ", "");
+  const lon = +coordSplit[1].replace(" ", "");
+
   if (cidade) {
-    const { data } = await apiCity.get<CityResponse[]>("/direct", {
-      params: { q: cidade },
-    });
+    const data = await getCity(cidade);
     cityName = data[0].name;
-    coordenada = `${data[0].lat},${data[0].lon}`;
-    // console.log(data);
+    coord = `${data[0].lat},${data[0].lon}`;
+  } else {
+    const data = await getCityName(lat, lon);
+    cityName = data[0].name;
+    coord = `${data[0].lat},${data[0].lon}`;
   }
 
-  if (!coordenada) return {} as ConsultarDadosResponse;
+  const data = await getWeatherData(lat, lon);
 
-  const [lat, lon] = coordenada.split(",");
-
-  const { data } = await apiCoord.get<WeatherResponse>("/onecall", {
-    params: { lat: lat.replace(" ", ""), lon: lon.replace(" ", "") },
-  });
   return { cityName, ...data };
 };
 
@@ -48,7 +54,6 @@ export const useMutationWeather = () => {
         status: "error",
         isClosable: true,
         duration: 3000,
-        // position: "bottom",
         title: "Ocorreu um erro ao buscar cidade",
         description: error.response?.data.message,
       });

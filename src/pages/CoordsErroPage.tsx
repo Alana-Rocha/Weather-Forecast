@@ -8,7 +8,7 @@ export const CoordsErroPage = () => {
 
   return (
     <Flex>
-      <Heading>{erro}</Heading>
+      <Heading color="blanchedalmond">{erro}</Heading>
     </Flex>
   );
 };

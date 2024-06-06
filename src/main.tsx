@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClientProvider } from "react-query";
 import { App } from "./App.tsx";
-import { queryClient } from "./service/queryClient.ts";
+import { queryClient } from "./utils/queryClient.ts";
 import "./styles/index.css";
 import { theme } from "./styles/theme.ts";
 

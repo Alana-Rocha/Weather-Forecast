@@ -30,7 +30,6 @@ export const useCoordsStore = create<CoordsStore>((set) => ({
           erro = "Não foi possível pegar a localização atual";
           break;
       }
-
       set({ states: { isLoading: false, erro } });
     },
   },
