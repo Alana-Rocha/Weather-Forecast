@@ -3,7 +3,7 @@ import axios from "axios";
 const apiKey = import.meta.env.VITE_APP_OPENWEATHER_API_KEY;
 
 export const apiCity = axios.create({
-  baseURL: "http://api.openweathermap.org/geo/1.0",
+  baseURL: "https://api.openweathermap.org/geo/1.0",
   params: { appid: apiKey, lang: "pt-BR" },
 });
 
