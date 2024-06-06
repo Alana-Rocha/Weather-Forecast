@@ -16,9 +16,12 @@ export const Input = memo(
     ({ label, maxW, ...rest }, ref) => {
       return (
         <FormControl maxW={maxW}>
-          <FormLabel fontSize="0.85rem" fontWeight="400">
-            {label}
-          </FormLabel>
+          {label && (
+            <FormLabel fontSize="0.85rem" fontWeight="400">
+              {label}
+            </FormLabel>
+          )}
+
           <InputChakra
             ref={ref}
             fontSize="0.9rem"
@@ -26,7 +29,7 @@ export const Input = memo(
             borderRadius="10px"
             border="1px solid transparent"
             _hover={{}}
-            p={6}
+            p={5}
             _focusVisible={{ borderColor: "previsao.laranja" }}
             {...rest}
           />

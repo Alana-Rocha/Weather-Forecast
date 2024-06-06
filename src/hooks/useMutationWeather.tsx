@@ -23,21 +23,21 @@ const consultarDados = async ({
   coordenada,
 }: Params): Promise<ConsultarDadosResponse> => {
   let cityName = "";
-  let coord = coordenada || "";
-
-  const coordSplit = coord.split(",");
-
-  const lat = +coordSplit[0].replace(" ", "");
-  const lon = +coordSplit[1].replace(" ", "");
+  let lat = coordenada ? +coordenada?.split(",")[0]?.replace(" ", "") : 0;
+  let lon = coordenada ? +coordenada?.split(",")[1]?.replace(" ", "") : 0;
 
   if (cidade) {
     const data = await getCity(cidade);
     cityName = data[0].name;
-    coord = `${data[0].lat},${data[0].lon}`;
-  } else {
+    lat = data[0].lat;
+    lon = data[0].lon;
+  }
+  console.log({ cidade, coordenada });
+  if (!cidade) {
     const data = await getCityName(lat, lon);
     cityName = data[0].name;
-    coord = `${data[0].lat},${data[0].lon}`;
+    lat = data[0].lat;
+    lon = data[0].lon;
   }
 
   const data = await getWeatherData(lat, lon);
