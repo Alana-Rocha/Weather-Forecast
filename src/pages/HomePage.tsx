@@ -1,6 +1,5 @@
 import { Divider, Flex, Image, Spinner, Text } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
-import { GrLocation } from "react-icons/gr";
 import { PiCircleLight, PiDropSimpleLight, PiWindLight } from "react-icons/pi";
 import { RiSearch2Line } from "react-icons/ri";
 import { Box } from "../components/Box";
@@ -88,13 +87,6 @@ export const HomePage = () => {
               cursor="pointer"
             />
           )}
-
-          <GrLocation
-            size="27px"
-            color="#fff"
-            // onClick={currentLocation}
-            cursor="pointer"
-          />
         </Flex>
 
         {weatherData.current && (
@@ -106,7 +98,7 @@ export const HomePage = () => {
               fontSize="1.2rem"
             >
               <Text fontSize="0.9rem" fontWeight="300" color="#000">
-                {formatLocalTime(weatherData)}
+                {formatLocalTime(weatherData.current.dt, weatherData.timezone)}
               </Text>
               <Flex alignItems="center" gap={3}>
                 <Text textTransform="capitalize">{`${weatherData.cityName}`}</Text>
