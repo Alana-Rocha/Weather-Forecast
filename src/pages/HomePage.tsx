@@ -12,6 +12,7 @@ import {
 } from "../hooks/useMutationWeather";
 import { useCoordsStore } from "../stores/coords";
 import { mascaraTemperatura } from "../utils/conversao";
+import { formatLocalTime } from "../utils/localDate";
 
 export const HomePage = () => {
   const { mutateAsync, isLoading } = useMutationWeather();
@@ -47,9 +48,14 @@ export const HomePage = () => {
     );
   };
 
-  const  currentLocation = ( ) => {
-
-  } 
+  // useEffect(() => {
+  //   if (!weatherData?.timezone) return;
+  //   console.log(
+  //     DateTime.fromSeconds(weatherData?.current?.dt, { zone: "utc" })
+  //       .plus({ seconds: weatherData?.timezone_offset })
+  //       .toFormat("HH:mm dd-MM-yyyy")
+  //   );
+  // }, [weatherData]);
 
   return (
     <Flex
@@ -60,7 +66,7 @@ export const HomePage = () => {
     >
       <Box
         flexDir="column"
-        p={5}
+        p={6}
         gap={10}
         bg="linear-gradient(175deg, rgba(202,77,38,1) 0%, rgba(128,31,0,1) 100%);"
       >
@@ -86,7 +92,7 @@ export const HomePage = () => {
           <GrLocation
             size="27px"
             color="#fff"
-            onClick={currentLocation}
+            // onClick={currentLocation}
             cursor="pointer"
           />
         </Flex>
@@ -99,11 +105,15 @@ export const HomePage = () => {
               alignItems="center"
               fontSize="1.2rem"
             >
-              <Text fontSize="1rem" fontWeight="300">
-                {/* {localDate} */}
+              <Text fontSize="0.9rem" fontWeight="300" color="#000">
+                {formatLocalTime(weatherData)}
               </Text>
-              <Text textTransform="capitalize">{weatherData.cityName}</Text>
-
+              <Flex alignItems="center" gap={3}>
+                <Text textTransform="capitalize">{`${weatherData.cityName}`}</Text>
+                <Image
+                  src={`https://flagsapi.com/${weatherData.countryAcronym}/flat/32.png`}
+                />
+              </Flex>
               <Text fontSize="4rem" textShadow="#0000003d 0px 4px 4px">
                 {weatherData?.hourly &&
                   mascaraTemperatura(Math.floor(weatherData?.hourly[0].temp))}

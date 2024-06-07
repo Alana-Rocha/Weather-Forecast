@@ -16,6 +16,7 @@ type Params = {
 
 export type ConsultarDadosResponse = {
   cityName: string;
+  countryAcronym: string;
 } & WeatherResponse;
 
 const consultarDados = async ({
@@ -23,26 +24,29 @@ const consultarDados = async ({
   coordenada,
 }: Params): Promise<ConsultarDadosResponse> => {
   let cityName = "";
+  let countryAcronym = "";
   let lat = coordenada ? +coordenada?.split(",")[0]?.replace(" ", "") : 0;
   let lon = coordenada ? +coordenada?.split(",")[1]?.replace(" ", "") : 0;
 
   if (cidade) {
     const data = await getCity(cidade);
     cityName = data[0].name;
+    countryAcronym = data[0].country;
     lat = data[0].lat;
     lon = data[0].lon;
   }
-  console.log({ cidade, coordenada });
+
   if (!cidade) {
     const data = await getCityName(lat, lon);
     cityName = data[0].name;
+    countryAcronym = data[0].country;
     lat = data[0].lat;
     lon = data[0].lon;
   }
-
+  console.log(countryAcronym);
   const data = await getWeatherData(lat, lon);
 
-  return { cityName, ...data };
+  return { cityName, countryAcronym, ...data };
 };
 
 export const useMutationWeather = () => {
