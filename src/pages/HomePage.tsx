@@ -73,7 +73,7 @@ export const HomePage = () => {
             label=""
             color="#000"
             onKeyDown={handleKeyPress}
-            placeholder="Digite o nome da cidade..."
+            placeholder="city..."
           />
           {isLoading ? (
             <Spinner />
