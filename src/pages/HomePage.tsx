@@ -23,6 +23,12 @@ export const HomePage = () => {
     s.states.longitude,
   ]);
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      searchLocation();
+    }
+  };
+
   useEffect(() => {
     (async () => {
       await mutateAsync(
@@ -47,15 +53,6 @@ export const HomePage = () => {
     );
   };
 
-  // useEffect(() => {
-  //   if (!weatherData?.timezone) return;
-  //   console.log(
-  //     DateTime.fromSeconds(weatherData?.current?.dt, { zone: "utc" })
-  //       .plus({ seconds: weatherData?.timezone_offset })
-  //       .toFormat("HH:mm dd-MM-yyyy")
-  //   );
-  // }, [weatherData]);
-
   return (
     <Flex
       height="100vh"
@@ -75,6 +72,7 @@ export const HomePage = () => {
             ref={inputRef}
             label=""
             color="#000"
+            onKeyDown={handleKeyPress}
             placeholder="Digite o nome da cidade..."
           />
           {isLoading ? (
