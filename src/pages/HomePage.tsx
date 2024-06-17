@@ -3,7 +3,6 @@ import { DateTime } from "luxon";
 import { useEffect, useRef, useState } from "react";
 import { PiCircleLight, PiDropSimpleLight, PiWindLight } from "react-icons/pi";
 import { RiSearch2Line } from "react-icons/ri";
-import { Box } from "../components/Box";
 import { BoxItem } from "../components/BoxItem";
 import { Input } from "../components/Input";
 import {
@@ -67,7 +66,9 @@ export const HomePage = () => {
       bgColor="weather.white"
       color="weather.white"
     >
-      <Box
+      <Flex
+        borderRadius="25"
+        boxShadow="base"
         flexDir="column"
         p={6}
         gap={10}
@@ -162,7 +163,7 @@ export const HomePage = () => {
             </Flex>
           </>
         )}
-      </Box>
+      </Flex>
     </Flex>
   );
 };
