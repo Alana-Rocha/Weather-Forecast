@@ -43,7 +43,6 @@ const consultarDados = async ({
     lat = data[0].lat;
     lon = data[0].lon;
   }
-  console.log(countryAcronym);
   const data = await getWeatherData(lat, lon);
 
   return { cityName, countryAcronym, ...data };
