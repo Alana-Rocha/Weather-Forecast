@@ -1,12 +1,17 @@
 import { Flex, FlexProps } from "@chakra-ui/react";
 import { memo } from "react";
 
-type BoxProps = { children?: JSX.Element | JSX.Element[] };
-
-export const Box = memo(({ children, ...rest }: BoxProps & FlexProps) => {
-  return (
-    <Flex bgColor="previsao.branco" borderRadius="25" boxShadow="base" {...rest}>
-      {children}
-    </Flex>
-  );
-});
+export const Box = memo(
+  ({ children, ...rest }: React.PropsWithChildren<FlexProps>) => {
+    return (
+      <Flex
+        bgColor="weather.white"
+        borderRadius="25"
+        boxShadow="base"
+        {...rest}
+      >
+        {children}
+      </Flex>
+    );
+  }
+);

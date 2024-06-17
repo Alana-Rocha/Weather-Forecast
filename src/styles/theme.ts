@@ -2,13 +2,14 @@ import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
   colors: {
-    previsao: {
-      branco: "#FFF",
+    weather: {
+      white: "#FFF",
+      black: "#000",
       azul: "#010059",
-      laranja: "#F58634",
-      amarelo: "#FCC82F",
-      cinza_claro: "#F2F3F3",
-      cinza_imagem: "#E7E7EB",
+      orange: "#F58634",
+      yellow: "#FCC82F",
+      grey: "#F2F3F3",
+      dark_grey: "#E7E7EB",
     },
   },
   fonts: {

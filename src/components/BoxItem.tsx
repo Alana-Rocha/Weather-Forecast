@@ -4,7 +4,6 @@ export type BoxItemProps = {
   icon: JSX.Element;
   label: string;
   value: string | number;
-  //   maxW?: string;
 };
 
 export const BoxItem = ({ icon, label, value, ...rest }: BoxItemProps) => {

@@ -58,7 +58,8 @@ export const HomePage = () => {
       height="100vh"
       justify="center"
       align="center"
-      bg="previsao.cinza_imagem"
+      bgColor="weather.white"
+      color="weather.white"
     >
       <Box
         flexDir="column"
@@ -70,8 +71,6 @@ export const HomePage = () => {
           <Input
             maxW="300px"
             ref={inputRef}
-            label=""
-            color="#000"
             onKeyDown={handleKeyPress}
             placeholder="city..."
           />
@@ -80,7 +79,6 @@ export const HomePage = () => {
           ) : (
             <RiSearch2Line
               size="27px"
-              color="#fff"
               onClick={searchLocation}
               cursor="pointer"
             />
@@ -95,19 +93,25 @@ export const HomePage = () => {
               alignItems="center"
               fontSize="1.2rem"
             >
-              <Text fontSize="0.9rem" fontWeight="300" color="#000">
+              <Text fontSize="0.9rem" fontWeight="300" color="weather.black">
                 {formatLocalTime(weatherData.current.dt, weatherData.timezone)}
               </Text>
+
               <Flex alignItems="center" gap={3}>
                 <Text textTransform="capitalize">{`${weatherData.cityName}`}</Text>
                 <Image
                   src={`https://flagsapi.com/${weatherData.countryAcronym}/flat/32.png`}
                 />
               </Flex>
-              <Text fontSize="4rem" textShadow="#0000003d 0px 4px 4px">
+
+              <Text
+                fontSize="4rem"
+                textShadow="#0000003d 0px 4px 4px"
+              >
                 {weatherData?.hourly &&
                   mascaraTemperatura(Math.floor(weatherData?.hourly[0].temp))}
               </Text>
+
               <Flex alignItems="center">
                 <Text fontWeight="300" textTransform="capitalize">
                   {weatherData?.current?.weather &&
@@ -129,20 +133,21 @@ export const HomePage = () => {
               p={2}
             >
               <Divider />
+
               <Flex gap={3}>
                 <BoxItem
                   icon={<PiWindLight size="27px" />}
-                  label={"Vento"}
+                  label={"Wind"}
                   value={`${weatherData?.current?.wind_speed} km/h`}
                 />
                 <BoxItem
                   icon={<PiDropSimpleLight size="27px" />}
-                  label={"Umidade"}
+                  label={"Humidity"}
                   value={`${weatherData?.current?.humidity}%`}
                 />
                 <BoxItem
                   icon={<PiCircleLight size="27px" />}
-                  label={"Índice UV"}
+                  label={"UV Index"}
                   value={`${weatherData?.current?.uvi}`}
                 />
               </Flex>
