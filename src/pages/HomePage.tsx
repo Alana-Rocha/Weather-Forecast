@@ -12,13 +12,9 @@ import {
 } from "../hooks/useMutationWeather";
 import { useCoordsStore } from "../stores/coords";
 import { mascaraTemperatura } from "../utils/conversao";
-import { formatLocalTime } from "../utils/localDate";
 
 export const HomePage = () => {
   const { mutateAsync, isLoading } = useMutationWeather();
-  const [background, setBackground] = useState(
-    "linear-gradient(175deg, rgba(202,77,38,1) 0%, rgba(128,31,0,1) 100%)"
-  );
   const inputRef = useRef<HTMLInputElement>(null);
   const [weatherData, setWeatherData] = useState({} as ConsultarDadosResponse);
 
@@ -46,22 +42,11 @@ export const HomePage = () => {
     })();
   }, [latitude, longitude, mutateAsync]);
 
-  useEffect(() => {
-    if (!weatherData) return;
+  const localDate = DateTime.fromMillis(weatherData?.current?.dt * 1000, {
+    zone: "utc",
+  }).setZone(weatherData?.timezone);
 
-    const currentTime = DateTime.fromMillis(weatherData?.current?.dt * 1000, {
-      zone: "utc",
-    })
-      .setZone(weatherData.timezone)
-      .get("hour");
-    console.log(currentTime);
-
-    if (currentTime >= 18 || currentTime < 0) {
-      setBackground(
-        "linear-gradient(180deg, rgba(0,44,200,1) 0%, rgba(44,46,50,1) 100%)"
-      );
-    }
-  }, [weatherData, weatherData?.current?.dt]);
+  const isNightTime = localDate.get("hour") >= 18 || localDate.get("hour") < 6;
 
   const searchLocation = async () => {
     await mutateAsync(
@@ -82,7 +67,16 @@ export const HomePage = () => {
       bgColor="weather.white"
       color="weather.white"
     >
-      <Box flexDir="column" p={6} gap={10} bg={background}>
+      <Box
+        flexDir="column"
+        p={6}
+        gap={10}
+        bg={
+          isNightTime
+            ? "linear-gradient(180deg, rgba(0,44,200,1) 0%, rgba(44,46,50,1) 100%)"
+            : "linear-gradient(175deg, rgba(202,77,38,1) 0%, rgba(128,31,0,1) 100%)"
+        }
+      >
         <Flex alignItems="center" justifyContent="center" gap={2}>
           <Input
             maxW="300px"
@@ -111,7 +105,7 @@ export const HomePage = () => {
               fontSize="1.2rem"
             >
               <Text fontSize="0.9rem" fontWeight="300">
-                {formatLocalTime(weatherData.current.dt, weatherData.timezone)}
+                {localDate.toFormat("cccc, dd LLL yyyy | 'Local Time:' HH:mm")}
               </Text>
 
               <Flex alignItems="center" gap={3}>
