@@ -90,9 +90,9 @@ export const HomePage = () => {
             <Spinner />
           ) : (
             <RiSearch2Line
-              size="27px"
               onClick={searchLocation}
               cursor="pointer"
+              size="25px"
             />
           )}
         </Flex>
@@ -132,30 +132,22 @@ export const HomePage = () => {
                   />
                 )}
               </Flex>
-            </Flex>
 
-            <Flex
-              alignItems="center"
-              flexDir="column"
-              justifyContent="center"
-              gap={5}
-              p={2}
-            >
               <Divider />
 
               <Flex gap={3}>
                 <BoxItem
-                  icon={<PiWindLight size="27px" />}
+                  icon={<PiWindLight size="25px" />}
                   label={"Wind"}
                   value={`${weatherData?.current?.wind_speed} km/h`}
                 />
                 <BoxItem
-                  icon={<PiDropSimpleLight size="27px" />}
+                  icon={<PiDropSimpleLight size="25px" />}
                   label={"Humidity"}
                   value={`${weatherData?.current?.humidity}%`}
                 />
                 <BoxItem
-                  icon={<PiCircleLight size="27px" />}
+                  icon={<PiCircleLight size="25px" />}
                   label={"UV Index"}
                   value={`${weatherData?.current?.uvi}`}
                 />

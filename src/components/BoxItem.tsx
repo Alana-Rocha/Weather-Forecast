@@ -11,10 +11,10 @@ export const BoxItem = ({ icon, label, value, ...rest }: BoxItemProps) => {
     <Flex
       bg="rgba(250, 250, 250, 0.2)"
       p={5}
+      w="115px"
       borderRadius="md"
       flexDir="column"
       alignItems="center"
-      w="115px"
       fontSize="0.8rem"
       {...rest}
       gap={1}
