@@ -1,6 +1,8 @@
 import { Divider, Flex, Image, Spinner, Text } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { DateTime } from "luxon";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { PiCircleLight, PiDropSimpleLight, PiWindLight } from "react-icons/pi";
 import { RiSearch2Line } from "react-icons/ri";
 import { BoxItem } from "../components/BoxItem";
@@ -11,22 +13,23 @@ import {
 } from "../hooks/useMutationWeather";
 import { useCoordsStore } from "../stores/coords";
 import { mascaraTemperatura } from "../utils/conversao";
+import { CityForm, CitySchema } from "../utils/schema/schema";
 
 export const HomePage = () => {
   const { mutateAsync, isLoading } = useMutationWeather();
-  const inputRef = useRef<HTMLInputElement>(null);
   const [weatherData, setWeatherData] = useState({} as ConsultarDadosResponse);
+
+  const methods = useForm<CityForm>({
+    resolver: zodResolver(CitySchema),
+    defaultValues: {
+      cityName: "",
+    },
+  });
 
   const [latitude, longitude] = useCoordsStore((s) => [
     s.states.latitude,
     s.states.longitude,
   ]);
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      searchLocation();
-    }
-  };
 
   useEffect(() => {
     (async () => {
@@ -47,9 +50,9 @@ export const HomePage = () => {
 
   const isNightTime = localDate.get("hour") >= 18 || localDate.get("hour") < 6;
 
-  const searchLocation = async () => {
+  const searchLocation: SubmitHandler<CityForm> = async (data) => {
     await mutateAsync(
-      { cidade: inputRef.current?.value || "" },
+      { cidade: data.cityName },
       {
         onSuccess: (data) => {
           setWeatherData(data);
@@ -57,6 +60,12 @@ export const HomePage = () => {
       }
     );
   };
+
+  //   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter") {
+  //     searchLocation();
+  //   }
+  // };
 
   return (
     <Flex
@@ -78,24 +87,27 @@ export const HomePage = () => {
             : "linear-gradient(175deg, rgba(202,77,38,1) 0%, rgba(128,31,0,1) 100%)"
         }
       >
-        <Flex alignItems="center" justifyContent="center" gap={2}>
-          <Input
-            maxW="300px"
-            ref={inputRef}
-            onKeyDown={handleKeyPress}
-            placeholder="city..."
-            color="weather.black"
-          />
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <RiSearch2Line
-              onClick={searchLocation}
-              cursor="pointer"
-              size="25px"
+        <FormProvider {...methods}>
+          <Flex as="form" alignItems="center" justifyContent="center" gap={2}>
+            <Input
+              id="cityName"
+              paddingY="6"
+              // w="300px"
+              // onKeyDown={handleKeyPress}
+              placeholder="city name"
+              color="weather.black"
             />
-          )}
-        </Flex>
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <RiSearch2Line
+                onClick={methods.handleSubmit(searchLocation)}
+                cursor="pointer"
+                size="25px"
+              />
+            )}
+          </Flex>
+        </FormProvider>
 
         {weatherData.current && (
           <>

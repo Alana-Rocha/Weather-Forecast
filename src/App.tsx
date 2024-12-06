@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { HomePage } from "./pages/HomePage";
 import { useCoordsStore } from "./stores/coords";
+import { Spinner } from "@chakra-ui/react";
 
 export const App = () => {
   const [isLoading, setLatLong, setErro] = useCoordsStore((s) => [
@@ -16,7 +17,7 @@ export const App = () => {
     );
   }, [setErro, setLatLong]);
 
-  if (isLoading) return "Carregando...";
+  if (isLoading) return <Spinner size="xl" />;
 
   return <HomePage />;
 };
