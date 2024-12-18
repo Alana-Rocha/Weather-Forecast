@@ -24,10 +24,10 @@ export const useCoordsStore = create<CoordsStore>((set) => ({
       let erro = "";
       switch (locationError.code) {
         case locationError.PERMISSION_DENIED:
-          erro = "É necessario permissão de localização para o site funcionar";
+          erro = "Location permission is required for the site to work";
           break;
         case locationError.POSITION_UNAVAILABLE:
-          erro = "Não foi possível pegar a localização atual";
+          erro = "Unable to use current location";
           break;
       }
       set({ states: { isLoading: false, erro } });

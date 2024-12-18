@@ -12,12 +12,13 @@ import {
   useMutationWeather,
 } from "../hooks/useMutationWeather";
 import { useCoordsStore } from "../stores/coords";
-import { mascaraTemperatura } from "../utils/conversao";
+import { mascaraTemperatura, uvConverter } from "../utils/conversion";
 import { CityForm, CitySchema } from "../utils/schema/schema";
 
 export const HomePage = () => {
   const { mutateAsync, isLoading } = useMutationWeather();
   const [weatherData, setWeatherData] = useState({} as ConsultarDadosResponse);
+  const [cityName, setCityName] = useState("");
 
   const methods = useForm<CityForm>({
     resolver: zodResolver(CitySchema),
@@ -61,12 +62,6 @@ export const HomePage = () => {
     );
   };
 
-  //   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.key === "Enter") {
-  //     searchLocation();
-  //   }
-  // };
-
   return (
     <Flex
       height="100vh"
@@ -92,8 +87,6 @@ export const HomePage = () => {
             <Input
               id="cityName"
               paddingY="6"
-              // w="300px"
-              // onKeyDown={handleKeyPress}
               placeholder="city name"
               color="weather.black"
             />
@@ -161,7 +154,7 @@ export const HomePage = () => {
                 <BoxItem
                   icon={<PiCircleLight size="25px" />}
                   label={"UV Index"}
-                  value={`${weatherData?.current?.uvi}`}
+                  value={uvConverter(weatherData?.current?.uvi)}
                 />
               </Flex>
             </Flex>

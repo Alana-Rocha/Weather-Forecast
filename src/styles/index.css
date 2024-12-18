@@ -51,9 +51,8 @@
 }
 
 :root {
-  --azul: #010059;
-  --laranja: #f58634;
-  --cinza: #f2f3f3;
+  --blue: #010059;
+  --orange: #f58634;
 }
 
 ::-webkit-scrollbar {
@@ -66,6 +65,6 @@
   border-radius: 0;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: var(--azul);
+  background-color: var(--blue);
   border-radius: 0;
 }

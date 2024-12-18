@@ -5,7 +5,7 @@ export const theme = extendTheme({
     weather: {
       white: "#FFF",
       black: "#000",
-      azul: "#010059",
+      blue: "#010059",
       orange: "#F58634",
       yellow: "#FCC82F",
       grey: "#F2F3F3",
